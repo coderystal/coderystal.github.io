@@ -1,0 +1,144 @@
+<head>
+    <style>
+        img {
+            height: 20px;
+            margin: 5px;
+        }
+        div {
+            margin: auto;
+            text-align: center;
+        }
+        .project {
+            background-color: aliceblue;
+            width: 40%;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border: 5px solid black;
+            border-radius: 20px;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+        .projecttag {
+            background-color: bisque;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+            padding: 1px;
+            font-size: small;
+        }
+    </style>
+    <script>
+        let projects = [
+  {
+    "beta": "kdramastats",
+    "name": "Dramas Documented",
+    "subtitle": "kdrama guidebook",
+    "description": "detailed kdrama recommendations alongside <a target='_blank' href='https://www.youtube.com/@wyxtv3050'>wyx tv</a> showcase",
+    "picture": "",
+    "subs": "",
+    "category": "entertainment",
+    "tags": "guidebook, catalog, reference, recommender, browser, attributes, search"
+  },
+  {
+    "beta": "questiondeck",
+    "name": "Curious Convo Companion",
+    "subtitle": "question collections",
+    "description": "categorized selections of conversation starters",
+    "picture": "",
+    "subs": "We're Not Really Strangers, Parents Are Human",
+    "category": "entertainment",
+    "tags": "reflect, connect"
+  },
+  {
+    "beta": "",
+    "name": "Wallet Watcher",
+    "subtitle": "expense reporting",
+    "description": "personal finance visualizers",
+    "picture": "",
+    "subs": "",
+    "category": "calculations",
+    "tags": "reports, wrapped, categorize"
+  }
+]
+    </script>
+</head>
+    <body>
+
+    <h1>coderystal
+        <a target="_blank" href='https://github.com/coderystal/'>
+            <img src='https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg'></a>
+        <a target="_blank" href="https://www.youtube.com/@coderystal">
+            <img src='https://cdn-icons-png.flaticon.com/512/1384/1384060.png'></a>
+        <a target="_blank" href="https://www.instagram.com/coderystal">
+            <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png'></a>
+        <a target="_blank" href="https://www.tiktok.com/@coderystal?lang=en">
+            <img src='https://static-00.iconduck.com/assets.00/tik-tok-icon-2048x2048-mmnsrcbe.png'></a>
+    </h1>
+
+    <div id="projects"></div>
+    <script>
+        function createElement(tag, innerHTML) {
+            let ele = document.createElement(tag)
+            ele.innerHTML = innerHTML
+            return ele
+        }
+
+        function createAnchor(href, innerHTML) {
+            let anchor = createElement("a", innerHTML)
+            anchor.target = "_blank"
+            anchor.href = href
+            return anchor
+        }
+
+        function createProjectElement(project) {
+            let projectDiv = document.createElement("div")
+            if (project.beta) {
+                projectDiv.append(createAnchor(
+                    "https://html-preview.github.io/?url=https://github.com/coderystal/" + project.beta + "/blob/main/v1/index.html",
+                    "<img src='https://cdn-icons-png.flaticon.com/512/25/25284.png'>"
+                ))
+                projectDiv.append(createAnchor(
+                    "https://github.com/coderystal/" + project.beta + "/tree/main/v1",
+                    "<img src='https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg'>"
+                ))
+            } else {
+                projectDiv.append(createElement("h4", "Coming soon(ish)..."))
+            }
+            projectDiv.appendChild(createElement("h3", project.name))
+            projectDiv.appendChild(createElement("span", project.category + (project.beta ? " - " + project.beta: "")+ ": " + project.subtitle + "<br>" + project.description))
+            projectDiv.appendChild(document.createElement("br"))
+            if (project.subs) {
+                projectDiv.appendChild(document.createElement("br"))
+                projectDiv.appendChild(createElement("span", "similar to: " + "<i>"+project.subs+"</i>"))
+                projectDiv.appendChild(document.createElement("br"))
+            }
+            project.tags.split(",").forEach(tag => {
+                let tagEle = createElement("div", tag)
+                tagEle.classList.add("projecttag")
+                projectDiv.appendChild(tagEle)
+            })
+            console.log(project)
+            projectDiv.classList.add("project")
+            return projectDiv
+        }
+        projects.forEach((project) => {
+            document.getElementById("projects").append(createProjectElement(project))
+        })
+    </script>
+
+    <br>
+
+    <div id="toolbox">
+        <div>general tools</div>
+        <a target="_blank" href="https://chatgpt.com/">
+            <img src="https://cdn-icons-png.flaticon.com/512/11865/11865326.png"></a>
+        <a target="_blank" href="https://notion.so/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"></a>
+        <a target="_blank" href="https://docs.google.com/spreadsheets/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Google_Sheets_logo_%282014-2020%29.svg/1498px-Google_Sheets_logo_%282014-2020%29.svg.png"></a>
+        <a target="_blank" href="https://csvjson.com/csv2json">
+            <img src="https://csvjson.com/img/logo_bg-dark.svg"></a>
+    </div>
+</body>
