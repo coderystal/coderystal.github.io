@@ -115,7 +115,7 @@
             let projectDiv = document.createElement("div")
             if (project.beta) {
                 projectDiv.append(createAnchor(
-                    "https://htmlpreview.github.io/?https://github.com/coderystal/" + project.beta + "/blob/main/v1/index.html",
+                    "https://coderystal.github.io/" + project.beta,
                     "<img src='https://cdn-icons-png.flaticon.com/512/25/25284.png'>"
                 ))
                 projectDiv.append(createAnchor(
@@ -133,12 +133,6 @@
                 projectDiv.appendChild(createElement("span", "similar to: " + "<i>"+project.subs+"</i>"))
                 projectDiv.appendChild(document.createElement("br"))
             }
-            if (project.beta) {
-                projectDiv.appendChild(createAnchor(
-                    "https://html-preview.github.io/?url=https://github.com/coderystal/" + project.beta + "/blob/main/v1/index.html",
-                    "other link if that didn't work<br>"
-                ))
-            }
             project.tags.split(",").forEach(tag => {
                 let tagEle = createElement("div", tag)
                 tagEle.classList.add("projecttag")
@@ -146,6 +140,10 @@
             })
             console.log(project)
             projectDiv.classList.add("project")
+            projectDiv.onclick = () => {
+                if (project.beta)
+                    window.open('https://coderystal.github.io/' + project.beta, '_blank')
+            }
             return projectDiv
         }
         projects.forEach((project) => {
