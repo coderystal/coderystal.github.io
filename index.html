@@ -1,18 +1,22 @@
 <head>
-    <meta name="google-site-verification" content="fa8aLzj1z4gcx-JPFc-k3wG2einMbdWOyTe0eLlcAWI" />
     <style>
         
         @media (max-width: 1000px) {
-            img {
+            img:not(.githubanchor *) {
                 height: 40px;
                 margin: 5px;
             }
         }
         @media (min-width: 1000px) {
-            img {
+            img:not(.githubanchor *) {
                 height: 20px;
                 margin: 5px;
             }
+        }
+
+        
+        .githubanchor img {
+            height: 20px;
         }
 
         div {
@@ -109,24 +113,30 @@
             let anchor = createElement("a", innerHTML)
             anchor.target = "_blank"
             anchor.href = href
+            anchor.onclick = (event) => event.stopPropagation()
             return anchor
         }
 
         function createProjectElement(project) {
             let projectDiv = document.createElement("div")
+
+            projectDiv.appendChild(createElement("h3", project.name))
+            
             if (project.beta) {
-                projectDiv.append(createAnchor(
-                    "https://coderystal.github.io/" + project.beta,
-                    "<img src='https://cdn-icons-png.flaticon.com/512/25/25284.png'>"
-                ))
-                projectDiv.append(createAnchor(
-                    "https://github.com/coderystal/" + project.beta + "/tree/main/v1",
+                let githubAnchor = createAnchor(
+                    "https://github.com/coderystal/" + project.beta + "/tree/main",
                     "<img src='https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg'>"
-                ))
+                )
+                githubAnchor.classList.add("githubanchor")
+                projectDiv.append(githubAnchor)
+                
+                projectDiv.append(createElement("br"))
+
+                projectDiv.onclick = () => window.open('https://coderystal.github.io/' + project.beta, '_blank')
             } else {
                 projectDiv.append(createElement("h4", "Coming soon(ish)..."))
             }
-            projectDiv.appendChild(createElement("h3", project.name))
+
             projectDiv.appendChild(createElement("span", project.category + (project.beta ? " - " + project.beta: "")+ ": " + project.subtitle + "<br>" + project.description))
             projectDiv.appendChild(document.createElement("br"))
             if (project.subs) {
@@ -141,10 +151,7 @@
             })
             console.log(project)
             projectDiv.classList.add("project")
-            projectDiv.onclick = () => {
-                if (project.beta)
-                    window.open('https://coderystal.github.io/' + project.beta, '_blank')
-            }
+
             return projectDiv
         }
         projects.forEach((project) => {
